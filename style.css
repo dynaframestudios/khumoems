@@ -237,8 +237,22 @@ html[data-theme="dark"] .icon-moon { display: block; }
 .hero {
   padding: 88px 24px 0;
   overflow: hidden;
+  position: relative;
 }
-.hero-inner { max-width: 780px; margin: 0 auto; text-align: center; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/hero.jpeg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.16;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-inner { max-width: 780px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
 
 .eyebrow {
   font-family: var(--font-mono);
@@ -294,6 +308,8 @@ html[data-theme="dark"] .icon-moon { display: block; }
   html { scroll-behavior: auto; }
 }
 
+html[data-theme="dark"] .hero::before { opacity: 0.22; }
+
 /* ============================================
    Trust strip
    ============================================ */
@@ -310,6 +326,20 @@ html[data-theme="dark"] .icon-moon { display: block; }
   gap: 20px;
 }
 .trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.trust-item-offset { transform: translateY(18px); }
+
+.thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-border);
+  margin-bottom: 12px;
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.trust-item .thumb { aspect-ratio: 1 / 1; max-width: 96px; border-radius: 50%; }
+
+.thumb-wide { aspect-ratio: 21 / 6; margin-top: 32px; }
 .trust-mark {
   font-family: var(--font-display);
   font-weight: 700;
@@ -362,7 +392,7 @@ html[data-theme="dark"] .icon-moon { display: block; }
 
 /* Coverage */
 .coverage-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
 }
 .coverage-item {
   border-left: 3px solid var(--red-600);
@@ -464,6 +494,7 @@ html[data-theme="dark"] .contact-map iframe { filter: grayscale(0.4) invert(0.9)
   .contact-map { min-height: 260px; }
 
   .trust-inner { grid-template-columns: repeat(2, 1fr); }
+  .trust-item-offset { transform: none; }
 
   .footer-inner { grid-template-columns: 1fr; gap: 28px; }
 
